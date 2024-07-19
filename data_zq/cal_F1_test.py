@@ -7,7 +7,7 @@ from suns.PostProcessing.evaluate import GetPerformance_Jaccard_2
 
 # GT_sparse
 dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CalmAn_dataset\YST\GT Masks"
-filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse_new.mat")
+filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse.mat")
 
 # dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\\Neurofinder\\train\GT Masks"
 # filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_100_sparse_new.mat")
@@ -17,7 +17,7 @@ GTMasks_2 = data_GT['GTMasks_2'].transpose()
 
 # Mask_sparse
 dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\CaImAn dataset\YST\SUNS noSF output_masks"
-filename_output = os.path.join(dir_Masks_output, "Output_Masks_YST_part11_sparse.mat")
+filename_output = os.path.join(dir_Masks_output, "Output_Masks_YST_part11_sparse_v2.mat")
 #
 # dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\\Neurofinder\\train videos\SUNS noSF output_masks"
 # filename_output = os.path.join(dir_Masks_output, "Output_Masks_01.00_sparse.mat")
