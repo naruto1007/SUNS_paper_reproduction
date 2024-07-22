@@ -10,8 +10,8 @@ dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CalmAn_datase
 
 # 1.test if the GT_sparse_generated is the same as the GT_sparse_given
 # _original is the same, _generated is not the same, need to check the sparse_generated function in mat_generate_sparse.py
-filename_GT_sparse_generated = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse_original.mat")
-# filename_GT_sparse_generated = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse_generated.mat")
+# filename_GT_sparse_generated = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse_original.mat")
+filename_GT_sparse_generated = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse_generated.mat")
 filename_GT_sparse_given = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse.mat")
 
 data_GT_sparse_generated = loadmat(filename_GT_sparse_generated)
