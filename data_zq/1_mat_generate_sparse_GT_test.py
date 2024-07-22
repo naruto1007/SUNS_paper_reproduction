@@ -26,6 +26,4 @@ print("The GT_sparse_generated is the same as the GT_sparse_given: ", result)
 # 2.test if mat_from_GT_sparse_given is the same as the GT.mat
 
 
-
 # 3.test if mat_from_GT_sparse_generated is the same as the GT.mat
-

@@ -31,8 +31,6 @@ num_1_output_generated_from_sparse = np.count_nonzero(masks_output_generated_fro
 print("num_original:", num_1_original)
 print("num_output_generated_from_sparse:", num_1_output_generated_from_sparse)
 
-# dimension mistake?
-
 result = np.array_equal(masks_output_original, masks_output_generated_from_sparse)
 # result = np.array_equal(masks_output_generated_from_sparse, Masks)
 print(result)
