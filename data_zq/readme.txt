@@ -21,7 +21,7 @@ CalmAn_dataset_K53 Masks from：
 [copy]
 CalmAn_dataset_YST Masks from：
 D:\PyCharm_project\SUNS_paper_reproduction\demo\data\GT Masks
-(cal_F1.png解释了用GT 和算法得到的mask进行计算，得到F1)
+(cal_F1_0_single_test.png解释了用GT 和算法得到的mask进行计算，得到F1)
 
 [copy]
 Neurofinder_train Masks from:
