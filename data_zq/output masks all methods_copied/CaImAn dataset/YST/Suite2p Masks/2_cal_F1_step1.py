@@ -25,7 +25,7 @@ def Performance_Cal_Suns_noSF(root_dir, result_dir, data_type_1, data_type_2, li
 
     dir_GTMasks = os.path.join(root_dir, data_type_1, data_type_2, "GT Masks", 'FinalMasks_')
     dir_Masks_output = os.path.join(root_dir, result_dir, data_type_1, data_type_2, method_type)
-    dir_OutputMasks = os.path.join(dir_Masks_output, 'Output_Masks_')
+    dir_OutputMasks = os.path.join(dir_Masks_output, '')
 
     time_total = 0
     time_frame = 0
@@ -38,7 +38,7 @@ def Performance_Cal_Suns_noSF(root_dir, result_dir, data_type_1, data_type_2, li
         data_GT = loadmat(filename_GT)
         GTMasks_2 = data_GT['GTMasks_2'].transpose()
         # Mask_sparse
-        filename_output = dir_OutputMasks + Exp_ID + '_sparse.mat'
+        filename_output = dir_OutputMasks + Exp_ID + '_neurons_sparse.mat'
         data_Masks = loadmat(filename_output)
         Masks_2 = data_Masks['Masks'].transpose()
         # calculate
@@ -61,7 +61,7 @@ result_dir = "output masks all methods_copied"
 
 data_type_1 = "CaImAn dataset"
 data_type_2 = "YST"
-method_type = "SUNS noSF output_masks"
+method_type = "Suite2p Masks"
 
 list_Exp_ID = ['YST_part11', 'YST_part12', 'YST_part21', 'YST_part22']
 
