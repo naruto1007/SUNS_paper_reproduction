@@ -18,11 +18,11 @@ def mat_visualization_GT(filename):
 def mat_visualization_output(filename):
     try:
         mat = h5py.File(filename, 'r')
-        Masks = np.array(mat['Masks'])
+        Masks = np.array(mat['finalSegments']).transpose([1, 2, 0])
         mat.close()
     except OSError:
         mat = loadmat(filename)
-        Masks = np.array(mat["Masks"]).transpose([1, 2, 0])
+        Masks = np.array(mat["finalSegments"]).transpose([1, 2, 0])
     print("Masks.shape: ", Masks.shape)
     data_output = Masks[:, :, 3]
     coordinates = np.where(data_output == 1)
@@ -30,20 +30,13 @@ def mat_visualization_output(filename):
     print(data_output)
 
 
-# dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CalmAn_dataset\YST\GT Masks"
-# filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11.mat")
-#
-# dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\\Neurofinder\\train\GT Masks"
-# filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_100.mat")
-# mat_visualization_GT(filename_GT)
+dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset\YST\GT Masks"
+filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11.mat")
+mat_visualization_GT(filename_GT)
 
-dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\CaImAn dataset\YST\CaImAn Batch Masks"
-filename_output = os.path.join(dir_Masks_output, "YST_part11_neurons_sparse.mat")
-#
 # dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\CaImAn dataset\YST\SUNS noSF output_masks"
 # filename_output = os.path.join(dir_Masks_output, "Output_Masks_YST_part11.mat")
-#
-# dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\\Neurofinder\\train videos\SUNS noSF output_masks"
-# filename_output = os.path.join(dir_Masks_output, "Output_Masks_01.00.mat")
+
+filename_output = "YST_part11_neurons.mat"
 
 mat_visualization_output(filename_output)

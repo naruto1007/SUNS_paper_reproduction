@@ -1,4 +1,4 @@
-# from Output_Info_All.mat for every kind of data
+# from Output_Info_All_cal.mat for every kind of data
 # the mat file includes list_Recall, list_Precision, list_F1, list_time,list_time_frame
 # a list_F1 includes n scores, n=6 or n=10 maybe
 
