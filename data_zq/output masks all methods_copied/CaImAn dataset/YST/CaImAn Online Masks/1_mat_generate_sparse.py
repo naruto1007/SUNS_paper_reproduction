@@ -25,6 +25,7 @@ def mat_generate_sparse_output(dir_Masks):
             savemat(os.path.join(path_name[:-4] + '_sparse.mat'), \
                     {'Masks': Masks_2}, do_compression=True)
 
+
 # dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\CaImAn dataset\YST\SUNS noSF output_masks"
 dir_Masks_output = "."
 mat_generate_sparse_output(dir_Masks_output)
