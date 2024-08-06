@@ -6,16 +6,15 @@ from scipy.io import loadmat
 from suns.PostProcessing.evaluate import GetPerformance_Jaccard_2
 
 # GT_sparse
-dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset\YST\GT Masks"
-filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse.mat")
+dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\\Neurofinder\\train\GT Masks"
+filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_04.01_sparse_generated.mat")
 
 data_GT = loadmat(filename_GT)
 GTMasks_2 = data_GT['GTMasks_2'].transpose()
 
 # Mask_sparse
-# dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\CaImAn dataset\YST\SUNS noSF output_masks"
-dir_Masks_output = "."
-filename_output = os.path.join(dir_Masks_output, "YST_part11_neurons_sparse.mat")
+dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\\Neurofinder\\train\SUNS noSF output_masks"
+filename_output = os.path.join(dir_Masks_output, "Output_Masks_04.01_sparse.mat")
 
 data_Masks = loadmat(filename_output)
 Masks_2 = data_Masks['Masks'].transpose()
