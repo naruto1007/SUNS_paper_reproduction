@@ -25,7 +25,7 @@ def Performance_Cal_Suns_noSF(root_dir, result_dir, data_type_1, data_type_2, li
 
     dir_GTMasks = os.path.join(root_dir, data_type_1, data_type_2, "GT Masks", 'FinalMasks_')
     dir_Masks_output = os.path.join(root_dir, result_dir, data_type_1, data_type_2, method_type)
-    dir_OutputMasks = os.path.join(dir_Masks_output, '')
+    dir_OutputMasks = os.path.join(dir_Masks_output, 'FinalSegments_')
 
     time_total = 0
     time_frame = 0
@@ -38,7 +38,7 @@ def Performance_Cal_Suns_noSF(root_dir, result_dir, data_type_1, data_type_2, li
         data_GT = loadmat(filename_GT)
         GTMasks_2 = data_GT['GTMasks_2'].transpose()
         # Mask_sparse
-        filename_output = dir_OutputMasks + Exp_ID + '_neurons_sparse.mat'
+        filename_output = dir_OutputMasks + Exp_ID + '_sparse.mat'
         data_Masks = loadmat(filename_output)
         Masks_2 = data_Masks['Masks'].transpose()
         # calculate
@@ -61,7 +61,7 @@ result_dir = "output masks all methods_copied"
 
 data_type_1 = "Neurofinder"
 data_type_2 = "test"
-method_type = "suite2p Masks"
+method_type = "STNeuroNet FinalMasks"
 
 list_Exp_ID = ['01.00', '01.01', '02.00', '02.01', '04.00', '04.01']
 

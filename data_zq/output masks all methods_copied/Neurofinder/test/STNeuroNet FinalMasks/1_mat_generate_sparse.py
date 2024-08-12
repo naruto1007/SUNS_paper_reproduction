@@ -7,18 +7,18 @@ from scipy.io import savemat, loadmat
 
 
 def mat_generate_sparse_output(dir_Masks):
-    dir_all = glob.glob(os.path.join(dir_Masks, '*_neurons*.mat'))
+    dir_all = glob.glob(os.path.join(dir_Masks, '*FinalSegments_*.mat'))
     for path_name in dir_all:
         file_name = os.path.split(path_name)[1]
         if '_sparse' not in file_name:
             print(file_name)
             try:  # If file_name is saved in '-v7.3' format
                 mat = h5py.File(path_name, 'r')
-                Masks = np.array(mat['finalSegments']).transpose([2, 1, 0]).astype('bool')
+                Masks = np.array(mat['finalSegments']).astype('bool')
                 mat.close()
             except OSError:  # If file_name is not saved in '-v7.3' format
                 mat = loadmat(path_name)
-                Masks = np.array(mat["finalSegments"]).transpose([2, 1, 0]).astype('bool')
+                Masks = np.array(mat["finalSegments"]).astype('bool')
 
             (Lx, Ly, ncells) = Masks.shape
             Masks_2 = sparse.coo_matrix(Masks.reshape(Lx * Ly, ncells))
