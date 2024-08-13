@@ -7,7 +7,7 @@ from scipy.io import savemat, loadmat
 from suns.PostProcessing.evaluate import GetPerformance_Jaccard_2
 
 
-def Performance_Cal_Suns_noSF(root_dir, result_dir, data_type_1, data_type_2, list_Exp_ID, method_type):
+def Performance_Cal(root_dir, result_dir, data_type_1, data_type_2, list_Exp_ID, method_type):
     # method: SUNS noSF output_masks
     nvideo = len(list_Exp_ID)
     list_CV = list(range(0, nvideo))
@@ -65,4 +65,4 @@ method_type = "CaImAn Batch Masks"
 
 list_Exp_ID = ['01.00', '01.01', '02.00', '02.01', '04.00', '04.01']
 
-Performance_Cal_Suns_noSF(root_dir, result_dir, data_type_1, data_type_2, list_Exp_ID, method_type)
+Performance_Cal(root_dir, result_dir, data_type_1, data_type_2, list_Exp_ID, method_type)

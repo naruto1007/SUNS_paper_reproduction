@@ -60,8 +60,8 @@ root_dir = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq"
 result_dir = "output masks all methods_copied"
 
 data_type_1 = "ABO"
-data_type_2 = "275"
-method_type = "SUNS noSF output_masks"
+data_type_2 = "1to9"
+method_type = "SUNS noSF output_masks 1to9"
 
 list_Exp_ID = ['501484643', '501574836', '501729039', '502608215', '503109347', '510214538', '524691284', '527048992',
                '531006860', '539670003']
