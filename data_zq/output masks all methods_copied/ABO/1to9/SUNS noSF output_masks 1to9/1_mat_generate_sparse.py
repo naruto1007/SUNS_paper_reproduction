@@ -7,7 +7,7 @@ from scipy.io import savemat, loadmat
 
 
 def mat_generate_sparse_output(dir_Masks):
-    dir_all = glob.glob(os.path.join(dir_Masks, 'Output_Masks_CV0_*.mat'))
+    dir_all = glob.glob(os.path.join(dir_Masks, 'Output_Masks_*.mat'))
     for path_name in dir_all:
         file_name = os.path.split(path_name)[1]
         if '_sparse' not in file_name:
