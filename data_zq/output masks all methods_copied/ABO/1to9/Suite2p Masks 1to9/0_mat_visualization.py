@@ -39,7 +39,7 @@ filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_FPremoved_501574836.mat")
 mat_visualization_GT(filename_GT)
 
 # dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\ABO\\1to9\Suite2p Masks 1to9\CV0"
-filename_output = os.path.join("./CV0", "501484643_neurons.mat")
+filename_output = os.path.join("./CV0", "501574836_neurons.mat")
 
 # filename_output = "Output_Masks_CV0_501574836.mat"
 
