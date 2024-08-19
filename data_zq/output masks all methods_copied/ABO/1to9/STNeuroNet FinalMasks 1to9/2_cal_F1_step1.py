@@ -28,7 +28,7 @@ def Performance_Cal(root_dir, result_dir, data_type_1, data_type_2, data_type_3,
     for CV in list_CV:
         Exp_ID = list_Exp_ID[CV]
         print('Video ', Exp_ID)
-        dir_OutputMasks = os.path.join(dir_Masks_output, Exp_ID, '')
+        dir_OutputMasks = os.path.join(dir_Masks_output, Exp_ID, 'FinalSegments_')
 
         Recall_test = np.zeros((num_CV, 1))
         Precision_test = np.zeros((num_CV, 1))
@@ -41,7 +41,7 @@ def Performance_Cal(root_dir, result_dir, data_type_1, data_type_2, data_type_3,
                 data_GT = loadmat(filename_GT)
                 GTMasks_2 = data_GT['GTMasks_2'].transpose()
                 # Mask_sparse
-                filename_output = dir_OutputMasks + Exp_ID_test + '_neurons_sparse.mat'
+                filename_output = dir_OutputMasks + Exp_ID_test + '_sparse.mat'
                 data_Masks = loadmat(filename_output)
                 Masks_2 = data_Masks['Masks'].transpose()
                 # calculate
@@ -74,7 +74,7 @@ result_dir = "output masks all methods_copied"
 data_type_1 = "ABO"
 data_type_2 = "275"
 data_type_3 = "1to9"
-method_type = "Suite2p Masks 1to9"
+method_type = "STNeuroNet FinalMasks 1to9"
 
 list_Exp_ID = ['CV0', 'CV1', 'CV2', 'CV3', 'CV4', 'CV5', 'CV6', 'CV7', 'CV8', 'CV9']
 

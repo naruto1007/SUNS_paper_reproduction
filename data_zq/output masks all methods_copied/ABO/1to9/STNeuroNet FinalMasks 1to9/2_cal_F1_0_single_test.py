@@ -13,8 +13,8 @@ data_GT = loadmat(filename_GT)
 GTMasks_2 = data_GT['GTMasks_2'].transpose()
 
 # Mask_sparse
-dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\ABO\\1to9\Suite2p Masks 1to9\CV0"
-filename_output = os.path.join(dir_Masks_output, "531006860_neurons_sparse.mat")
+dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\ABO\\1to9\STNeuroNet FinalMasks 1to9\CV0"
+filename_output = os.path.join(dir_Masks_output, "FinalSegments_531006860_sparse.mat")
 
 data_Masks = loadmat(filename_output)
 Masks_2 = data_Masks['Masks'].transpose()
