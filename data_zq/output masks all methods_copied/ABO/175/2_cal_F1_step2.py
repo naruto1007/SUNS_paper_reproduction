@@ -2,9 +2,6 @@
 # the mat file includes list_Recall, list_Precision, list_F1, list_time,list_time_frame
 # a list_F1 includes n scores, n=6 or n=10 maybe
 
-# from list_Recall, list_Precision, list_F1, we can get a mean value and a std value (error bar), n=6 or n=10
-# we get 4 methods results with a mean and a std value for every method
-
 # legend: method name
 # x: Recall Precision F1
 # data: calculated mean value and std, for R, P, F1
@@ -17,6 +14,9 @@ x_labels = ['Recall', 'Precision', 'F1']
 y_labels = ['SUNS', 'STNeuroNet', 'CaImAn Batch', 'Suite2p']
 file_names = ['SUNS noSF output_masks', 'STNeuroNet FinalMasks', 'CaImAn Batch Masks', 'Suite2p Masks']
 
+# 1. get results and cal mean, std
+# from list_Recall, list_Precision, list_F1, we can get a mean value and a std value (error bar), n=6 or n=10
+# we get 4 methods results with a mean and a std value for every method
 Recall_tmp = []
 Precision_tmp = []
 F1_tmp = []
@@ -38,29 +38,26 @@ Recall = np.array(Recall_tmp)
 Precision = np.array(Precision_tmp)
 F1 = np.array(F1_tmp)
 
+# cal avg and std
+Recall_avg = np.mean(Recall, axis=1)
+Recall_std = np.std(Recall, axis=1)
 
+Precision_avg = np.mean(Precision, axis=1)
+Precision_std = np.std(Precision, axis=1)
 
-# 假设我们有以下四组数据
-recall = [0.8, 0.7, 0.9, 0.6]
-precision = [0.7, 0.6, 0.8, 0.5]
-f1 = [0.75, 0.65, 0.85, 0.55]
-mean_std = [(0.75, 0.05), (0.65, 0.04), (0.85, 0.03), (0.55, 0.02)]
+F1_avg = np.mean(F1, axis=1)
+F1_std = np.std(F1, axis=1)
 
+# 2. plot
 x = np.arange(len(x_labels))
-
-# 设置纵坐标范围
-y_min = min([min(m - s, m + s) for m, s in mean_std])
-y_max = max([max(m - s, m + s) for m, s in mean_std])
-y_range = y_max - y_min
-
-# 绘制柱状图
 fig, ax = plt.subplots()
 width = 0.18
-for i in range(len(recall)):
-    ax.bar(x - width + i * width, [recall[i], precision[i], f1[i]], width, align='center', label=y_labels[i])
-    ax.errorbar(x - width + i * width, [recall[i], precision[i], f1[i]],
-                yerr=[mean_std[i][1], mean_std[i][1], mean_std[i][1]], fmt=',', capsize=5, color='black')
-    # ax.scatter(x - width + i * width, )
+for i in range(len(Recall_avg)):
+    ax.bar(x - width + i * width, [Recall_avg[i], Precision_avg[i], F1_avg[i]], width, label=y_labels[i], zorder=1)
+    ax.errorbar(x - width + i * width, [Recall_avg[i], Precision_avg[i], F1_avg[i]],
+                yerr=[Recall_std[i], Precision_std[i], F1_std[i]], fmt=',', capsize=5, color='black', zorder=3)
+    for j in range(len(Recall[0])):
+        ax.scatter(x - width + i * width, [Recall[i][j], Precision[i][j], F1[i][j]], color='gray', marker='o', zorder=2)
 # 设置横坐标标签和刻度
 fontsize = 14
 ax.set_xticks(x)
@@ -80,5 +77,5 @@ ax.tick_params(direction='in')
 ax.set_title('ABO 275 μm to 175 μm', fontsize=fontsize)
 
 # 保存或显示图形
-# plt.savefig("2_cal_F1_step2.png")
+plt.savefig("2_cal_F1_step2.png")
 plt.show()
