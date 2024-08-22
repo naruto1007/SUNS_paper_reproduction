@@ -82,7 +82,7 @@ for ind=1:4
     
     for xpart = 1:2
         for ypart = 1:2
-            xrange = xyrange(ind,2*xpart-1):xyrange(ind,2*xpart);
+            xrange =x yrange(ind,2*xpart-1):xyrange(ind,2*xpart);
             yrange = xyrange(ind,2*ypart-1+4):xyrange(ind,2*ypart+4);
             FinalMasks = masks(xrange,yrange,:);
             areas_cut = squeeze(sum(sum(FinalMasks,1),2));

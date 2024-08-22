@@ -10,20 +10,20 @@ from scipy.io import savemat, loadmat
 
 
 def mat_generate_sparse_GT_original(dir_Masks):
-    dir_all = glob.glob(os.path.join(dir_Masks, '*FinalMasks*.mat'))
+    dir_all = glob.glob(os.path.join(dir_Masks, 'FinalMasks_FPremoved_*.mat'))
     for path_name in dir_all:
         file_name = os.path.split(path_name)[1]
         if '_sparse' not in file_name:
             print(file_name)
             try:  # If file_name is saved in '-v7.3' format
                 mat = h5py.File(path_name, 'r')
-                FinalMasks = np.array(mat['FinalMasks']).transpose([2, 1, 0]).astype('bool')
+                FinalMasks = np.array(mat['FinalMasks']).astype('bool')
                 mat.close()
             except OSError:  # If file_name is not saved in '-v7.3' format
                 mat = loadmat(path_name)
-                FinalMasks = np.array(mat["FinalMasks"]).transpose([2, 1, 0]).astype('bool')
+                FinalMasks = np.array(mat["FinalMasks"]).astype('bool')
 
-            (ncells, Ly, Lx) = FinalMasks.shape
+            (ncells, Lx, Ly) = FinalMasks.shape
             GTMasks_2 = sparse.coo_matrix(FinalMasks.reshape(ncells, Lx * Ly).T)
             savemat(os.path.join(path_name[:-4] + '_sparse_original.mat'), \
                     {'GTMasks_2': GTMasks_2}, do_compression=True)
@@ -51,4 +51,4 @@ def mat_generate_sparse_GT(dir_Masks):
 
 # the results from the two GT_methods is the same
 dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\ABO\\175\GT Masks"
-mat_generate_sparse_GT(dir_Masks_GT)
+mat_generate_sparse_GT_original(dir_Masks_GT)

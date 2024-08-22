@@ -20,15 +20,15 @@ savemat(os.path.join(dir_Masks_output, "FinalSegments_501271265_generated_from_s
 output_original = os.path.join(dir_Masks_output, "FinalSegments_501271265.mat")
 data_output_original = loadmat(output_original)
 masks_output_original = data_output_original['finalSegments']
-masks_output_original = masks_output_original.transpose([1, 2, 0])
+masks_output_original = masks_output_original.transpose([2, 0, 1])
 
 output_generated_from_sparse = os.path.join(dir_Masks_output, "FinalSegments_501271265_generated_from_sparse.mat")
 data_output_generated_from_sparse = loadmat(output_generated_from_sparse)
 masks_output_generated_from_sparse = data_output_generated_from_sparse['Masks']
 
 # nums of 1 is equal?
-num_1_original = np.count_nonzero(masks_output_original == 1)
-num_1_output_generated_from_sparse = np.count_nonzero(masks_output_generated_from_sparse == 1)
+num_1_original = np.count_nonzero(masks_output_original[0] == 1)
+num_1_output_generated_from_sparse = np.count_nonzero(masks_output_generated_from_sparse[0] == 1)
 print("num_original:", num_1_original)
 print("num_output_generated_from_sparse:", num_1_output_generated_from_sparse)
 
