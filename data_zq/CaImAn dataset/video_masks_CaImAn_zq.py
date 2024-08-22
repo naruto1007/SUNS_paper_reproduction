@@ -28,7 +28,6 @@ for ind in range(len(list_caiman)):
     dimensions = info['dimensions']
     w, h = dimensions[2], dimensions[1]  # "dimensions": [3000, 200, 256], [frames, height, width]
 
-
     # mask = np.zeros((w, h), dtype=bool)
     # masks = np.zeros((w, h, num_masks), dtype=bool)
     # for i in range(num_masks):
@@ -60,18 +59,18 @@ for ind in range(len(list_caiman)):
         mask[tuple(zip(*coords))] = 1
         return mask
 
-
     masks = np.array([tomask(s['coordinates']) for s in regions])
 
     areas = np.sum(np.sum(masks, axis=1), axis=0)
 
-    for xpart in range(2):
-        for ypart in range(2):
-            xrange = slice(xyrange[ind][2 * xpart - 1], xyrange[ind][2 * xpart])
-            yrange = slice(xyrange[ind][2 * ypart - 1 + 4], xyrange[ind][2 * ypart + 4])
+    # w, h = 463, 472
+    for xpart in range(1, 3):
+        for ypart in range(1, 3):
+            xrange = [xyrange[ind][2 * xpart - 1 - 1], xyrange[ind][2 * xpart - 1]]
+            yrange = [xyrange[ind][2 * ypart - 1 + 4 - 1], xyrange[ind][2 * ypart + 4 - 1]]
             FinalMasks = masks[xrange, yrange, :]
             areas_cut = np.sum(np.sum(FinalMasks, axis=1), axis=0)
             areas_ratio = areas_cut / areas
             FinalMasks[:, :, areas_ratio < 1 / 3] = False
-            mask_name = f"./{data_name}/GT Masks/FinalMasks_{data_name}_part{xpart+1}{ypart+1}.mat"
+            mask_name = f"./{data_name}/GT Masks/FinalMasks_{data_name}_part{xpart}{ypart}.mat"
             savemat(mask_name, {'FinalMasks': FinalMasks}, format='5')
