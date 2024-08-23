@@ -5,13 +5,9 @@ from scipy.io import loadmat
 
 
 def mat_visualization_GT(filename):
-    try:
-        mat = h5py.File(filename, 'r')
-        FinalMasks = np.array(mat['FinalMasks']).transpose([2, 1, 0])
-        mat.close()
-    except OSError:
-        mat = loadmat(filename)
-        FinalMasks = np.array(mat["FinalMasks"]).transpose([2, 1, 0])
+    mat = h5py.File(filename, 'r')
+    FinalMasks = np.array(mat["FinalMasks"]).transpose([1, 2, 0])
+    mat.close()
     print("FinalMasks.shape: ", FinalMasks.shape)
     data_GT = FinalMasks[:, :, 3]
     coordinates = np.where(data_GT == 1)
@@ -22,7 +18,7 @@ def mat_visualization_GT(filename):
 def mat_visualization_output(filename):
     try:
         mat = h5py.File(filename, 'r')
-        Masks = np.array(mat['Masks']).transpose([1, 2, 0])
+        Masks = np.array(mat['Masks'])
         mat.close()
     except OSError:
         mat = loadmat(filename)

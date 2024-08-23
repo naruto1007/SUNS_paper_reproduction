@@ -9,7 +9,8 @@ import numpy as np
 from scipy.io import savemat
 
 dir_data_file = "D:\\0_Project\OBMI_Data\\20230323_CalmAn\WEBSITE"
-list_caiman = ['J115', 'J123', 'K53', 'YST']
+# list_caiman = ['J115', 'J123', 'K53', 'YST']
+list_caiman = ['YST']
 # lateral dimensions to crop four sub-videos
 xyrange = [[1, 224, 240, 463, 1, 224, 249, 472],
            [1, 152, 169, 320, 1, 216, 243, 458],
@@ -26,23 +27,8 @@ for ind in range(len(list_caiman)):
     with open(f'{dir_data_file}/{data_name}/info.json', 'r') as f:
         info = json.load(f)
     dimensions = info['dimensions']
-    w, h = dimensions[2], dimensions[1]  # "dimensions": [3000, 200, 256], [frames, height, width]
+    h, w = dimensions[1], dimensions[2]  # "dimensions": [3000, 200, 256], [frames, height, width]
 
-    # mask = np.zeros((w, h), dtype=bool)
-    # masks = np.zeros((w, h, num_masks), dtype=bool)
-    # for i in range(num_masks):
-    #     if isinstance(regions[i], dict):
-    #         coords = np.array(regions[i]['coordinates']) + 2
-    #     elif isinstance(regions[i], list):
-    #         coords = np.array(regions[i]['coordinates']) + 2
-    #     else:
-    #         raise ValueError("Unsupported region type")
-    #
-    #     mask = np.zeros((w, h), dtype=bool)
-    #     # mask[tuple(np.transpose(coords))] = True
-    #     for x, y in coords:
-    #         mask[y, x] = 1
-    #     masks[:, :, i] = mask
 
     # # simplified
     # masks_tmp = []
@@ -59,18 +45,27 @@ for ind in range(len(list_caiman)):
         mask[tuple(zip(*coords))] = 1
         return mask
 
+
     masks = np.array([tomask(s['coordinates']) for s in regions])
 
-    areas = np.sum(np.sum(masks, axis=1), axis=0)
+    areas = np.sum(np.sum(masks, axis=2), axis=1)  # 按照行，再按列相加
 
+    ind = 3
     # w, h = 463, 472
-    for xpart in range(1, 3):
-        for ypart in range(1, 3):
-            xrange = [xyrange[ind][2 * xpart - 1 - 1], xyrange[ind][2 * xpart - 1]]
-            yrange = [xyrange[ind][2 * ypart - 1 + 4 - 1], xyrange[ind][2 * ypart + 4 - 1]]
-            FinalMasks = masks[xrange, yrange, :]
-            areas_cut = np.sum(np.sum(FinalMasks, axis=1), axis=0)
+    # attention the index in python starts from 0 while that in matlab starts from 1
+    for xpart in range(1, 3):  # h
+        for ypart in range(1, 3):  # w
+            xrange_1 = xyrange[ind][2 * xpart - 1 - 1]
+            xrange_2 = xyrange[ind][2 * xpart - 1]
+            yrange_1 = xyrange[ind][2 * ypart - 1 + 4 - 1]
+            yrang_2 = xyrange[ind][2 * ypart + 4 - 1]
+            FinalMasks = masks[:, xrange_1 - 1:xrange_2, yrange_1 - 1:yrang_2]
+            areas_cut = np.sum(np.sum(FinalMasks, axis=2), axis=1)
             areas_ratio = areas_cut / areas
-            FinalMasks[:, :, areas_ratio < 1 / 3] = False
+            frames_to_keep = areas_ratio >= 1 / 3
+            true_count = np.sum(frames_to_keep)
+            print("Number of frames to keep:", true_count)
+            FinalMasks = FinalMasks[frames_to_keep, :, :]
+            # FinalMasks[areas_ratio < 1 / 3, :, :] = []
             mask_name = f"./{data_name}/GT Masks/FinalMasks_{data_name}_part{xpart}{ypart}.mat"
             savemat(mask_name, {'FinalMasks': FinalMasks}, format='5')
