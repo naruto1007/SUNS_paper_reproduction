@@ -50,5 +50,5 @@ def mat_generate_sparse_GT(dir_Masks):
 
 
 # the results from the two GT_methods is the same
-dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset\YST\GT Masks"
+dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset\J123\GT Masks"
 mat_generate_sparse_GT(dir_Masks_GT)
