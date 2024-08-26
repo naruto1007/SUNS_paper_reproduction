@@ -6,7 +6,7 @@ from scipy.io import loadmat
 from suns.PostProcessing.evaluate import GetPerformance_Jaccard_2
 
 # GT_sparse
-dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset\YST\GT Masks"
+dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset\YST\GT Masks_o"
 filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_YST_part11_sparse.mat")
 
 data_GT = loadmat(filename_GT)

@@ -10,7 +10,8 @@
 
 %%
 clear;
-dir_data_file = "D:\\0_Project\\OBMI_Data\\20230323_CalmAn\\WEBSITE"; % The location of the unzipped files
+dir_data_file = 'D:\0_Project\OBMI_Data\20230323_CalmAn\WEBSITE'; % The location of the unzipped files
+dir_gt_masks = 'D:\PyCharm_project\SUNS_paper_reproduction\data_zq\CaImAn dataset';
 list_caiman = { 'J115', 'J123', 'K53', 'YST'}; %, 'N.00.00', 'N.01.01', 'N.02.00', 'N.03.00.t', 'N.04.00.t'};
 xyrange = [ 1, 224, 240, 463, 1, 224, 249, 472;
             1, 152 ,169, 320, 1, 216, 243, 458;
@@ -18,7 +19,7 @@ xyrange = [ 1, 224, 240, 463, 1, 224, 249, 472;
             1,  88, 113, 200, 1, 120, 137, 256]; % lateral dimensions to crop four sub-videos.
 
 %%
-for ind=1:4
+for ind=4
     %% find tiff files and order them
     data_name = list_caiman{ind};
 %    dir_data = fullfile(dir_data_file, ['images_',data_name]);
@@ -65,8 +66,9 @@ for ind=1:4
     regions = jsondecode(fileread(fullfile(dir_data_file, data_name,'regions','consensus_regions.json')));
     num_masks = length(regions);
     info = jsondecode(fileread(fullfile(dir_data_file, data_name,'info.json')));
-    w = 472;
-    h = 463;
+    dimensions = info.dimensions;% "dimensions": [3000, 200, 256], [frames, width, height]
+    w = dimensions(2);
+    h = dimensions(3);
     mask = zeros(w, h, 'logical');
     masks = zeros(w, h, num_masks, 'logical');
 
@@ -90,7 +92,7 @@ for ind=1:4
             areas_cut = squeeze(sum(sum(FinalMasks,1),2));
             areas_ratio = areas_cut./areas;
             FinalMasks(:,:,areas_ratio<1/3)=[];
-            mask_name = fullfile(data_name,'GT Masks',sprintf('FinalMasks_%s_part%d%d.mat',data_name,xpart,ypart));
+            mask_name = fullfile(dir_gt_masks, data_name,'GT Masks',sprintf('FinalMasks_%s_part%d%d.mat',data_name,xpart,ypart));
             save(mask_name,'FinalMasks','-v7.3');
         end
     end

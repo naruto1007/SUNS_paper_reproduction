@@ -46,7 +46,7 @@ for ind in range(len(list_caiman)):
         return mask
 
 
-    masks = np.array([tomask(s['coordinates']) for s in regions])
+    masks = np.array([tomask(s['coordinates']) for s in regions]).astype('uint8')
 
     areas = np.sum(np.sum(masks, axis=2), axis=1)  # 按照行，再按列相加
 
@@ -66,6 +66,7 @@ for ind in range(len(list_caiman)):
             true_count = np.sum(frames_to_keep)
             print("Number of frames to keep:", true_count)
             FinalMasks = FinalMasks[frames_to_keep, :, :]
+            FinalMasks = FinalMasks.transpose([0, 2, 1])
             # FinalMasks[areas_ratio < 1 / 3, :, :] = []
             mask_name = f"./{data_name}/GT Masks/FinalMasks_{data_name}_part{xpart}{ypart}.mat"
             savemat(mask_name, {'FinalMasks': FinalMasks}, format='5')
