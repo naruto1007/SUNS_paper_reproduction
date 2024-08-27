@@ -52,8 +52,10 @@ F1_std = np.std(F1, axis=1)
 x = np.arange(len(x_labels))
 fig, ax = plt.subplots()
 width = 0.18
+# https://www.matplotlib.net/stable/gallery/color/named_colors.html
+colors = ['salmon', 'cornflowerblue', 'darkorange', 'mediumseagreen']
 for i in range(len(Recall_avg)):
-    ax.bar(x - width + i * width, [Recall_avg[i], Precision_avg[i], F1_avg[i]], width, label=y_labels[i], zorder=1)
+    ax.bar(x - width + i * width, [Recall_avg[i], Precision_avg[i], F1_avg[i]], width, label=y_labels[i], zorder=1, color = colors[i])
     ax.errorbar(x - width + i * width, [Recall_avg[i], Precision_avg[i], F1_avg[i]],
                 yerr=[Recall_std[i], Precision_std[i], F1_std[i]], fmt=',', capsize=5, color='black', zorder=3)
     for j in range(len(Recall[0])):

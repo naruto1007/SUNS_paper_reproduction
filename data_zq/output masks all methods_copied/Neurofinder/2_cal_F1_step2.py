@@ -13,13 +13,13 @@ from scipy.io import loadmat
 x_labels = ['Recall', 'Precision', 'F1']
 y_labels = ['SUNS', 'STNeuroNet', 'CaImAn Batch', 'Suite2p']
 # data_type = ['J115', 'J123', 'K53', 'YST']
-data_type = ['J115', 'K53', 'YST']
+data_type = ['train', 'test']
 method_names = ['SUNS noSF output_masks', 'STNeuroNet FinalMasks', 'CaImAn Batch Masks', 'Suite2p Masks']
 
 # 1. get results and cal mean, std
 # from list_Recall, list_Precision, list_F1, we can get a mean value and a std value (error bar), n=6 or n=10
 # we get 4 methods results with a mean and a std value for every method
-n = len(data_type) * 4  # average dataset has 4 train 3 test 1 res
+n = len(data_type) * 6  # average dataset has 4 train 3 test 1 res
 Recall_tmp = np.zeros((len(method_names), n))
 Precision_tmp = np.zeros((len(method_names), n))
 F1_tmp = np.zeros((len(method_names), n))
@@ -33,11 +33,11 @@ for i in range(len(data_type)):
         list_F1 = np.array(mat["list_F1"])
         list_time = np.array(mat["list_time"])
         list_time_frame = np.array(mat["list_time_frame"])
-        Recall_tmp[j, 4 * i:4 * i + 4] = np.squeeze(list_Recall)
-        Precision_tmp[j, 4 * i:4 * i + 4] = np.squeeze(list_Precision)
-        F1_tmp[j, 4 * i:4 * i + 4] = np.squeeze(list_F1)
+        Recall_tmp[j, 6 * i:6 * i + 6] = np.squeeze(list_Recall)
+        Precision_tmp[j, 6 * i:6 * i + 6] = np.squeeze(list_Precision)
+        F1_tmp[j, 6 * i:6 * i + 6] = np.squeeze(list_F1)
 
-# [4, 16] ndarray, 4 methods, 16 data points
+# [4, 12] ndarray, 4 methods, 12 data points
 Recall = np.array(Recall_tmp)
 Precision = np.array(Precision_tmp)
 F1 = np.array(F1_tmp)
@@ -80,7 +80,7 @@ ax.spines['top'].set_visible(False)
 ax.tick_params(direction='in')
 # ax.tick_params(axis='x', direction='in', grid_alpha=0.5)
 
-ax.set_title('CaImAn dataset train 3 test 1', fontsize=fontsize)
+ax.set_title('Neurofinder train 1 test 1', fontsize=fontsize)
 
 # 保存或显示图形
 plt.savefig("2_cal_F1_step2.png")
