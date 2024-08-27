@@ -14,11 +14,11 @@ def mat_generate_sparse_output(dir_Masks):
             print(file_name)
             try:  # If file_name is saved in '-v7.3' format
                 mat = h5py.File(path_name, 'r')
-                Masks = np.array(mat['Masks']).transpose([1, 2, 0]).astype('bool')
+                Masks = np.array(mat['Masks']).astype('bool')
                 mat.close()
             except OSError:  # If file_name is not saved in '-v7.3' format
                 mat = loadmat(path_name)
-                Masks = np.array(mat["Masks"]).transpose([1, 2, 0]).astype('bool')
+                Masks = np.array(mat["Masks"]).astype('bool')
 
             (Lx, Ly, ncells) = Masks.shape
             Masks_2 = sparse.coo_matrix(Masks.reshape(Lx * Ly, ncells))
