@@ -37,11 +37,11 @@ def mat_generate_sparse_GT(dir_Masks):
             print(file_name)
             try:  # If file_name is saved in '-v7.3' format
                 mat = h5py.File(path_name, 'r')
-                FinalMasks = np.array(mat['FinalMasks']).transpose([1, 2, 0]).astype('bool')
+                FinalMasks = np.array(mat['FinalMasks']).transpose([2, 1, 0]).astype('bool')
                 mat.close()
             except OSError:  # If file_name is not saved in '-v7.3' format
                 mat = loadmat(path_name)
-                FinalMasks = np.array(mat["FinalMasks"]).transpose([1, 2, 0]).astype('bool')
+                FinalMasks = np.array(mat["FinalMasks"]).transpose([2, 1, 0]).astype('bool')
 
             (Lx, Ly, ncells) = FinalMasks.shape
             GTMasks_2 = sparse.coo_matrix(FinalMasks.reshape(Lx * Ly, ncells))
