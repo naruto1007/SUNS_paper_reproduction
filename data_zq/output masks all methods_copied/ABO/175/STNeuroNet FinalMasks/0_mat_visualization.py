@@ -22,11 +22,11 @@ def mat_visualization_GT_original(filename):
 def mat_visualization_GT(filename):
     try:
         mat = h5py.File(filename, 'r')
-        FinalMasks = np.array(mat["FinalMasks"]).transpose([1, 2, 0]).astype('int')
+        FinalMasks = np.array(mat["FinalMasks"]).transpose([2, 1, 0]).astype('int')
         mat.close()
     except OSError:
         mat = loadmat(filename)
-        FinalMasks = np.array(mat["FinalMasks"]).transpose([1, 2, 0]).astype('int')
+        FinalMasks = np.array(mat["FinalMasks"]).transpose([2, 1, 0]).astype('int')
     print("FinalMasks.shape: ", FinalMasks.shape)
     data_GT = FinalMasks[:, :, 3]
     coordinates = np.where(data_GT == 1)
@@ -51,7 +51,7 @@ def mat_visualization_output(filename):
 
 dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\ABO\\175\GT Masks"
 filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_FPremoved_501271265.mat")
-mat_visualization_GT_original(filename_GT)
+mat_visualization_GT(filename_GT)
 
 # dir_Masks_output = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\output masks all methods_copied\CaImAn dataset\YST\SUNS noSF output_masks"
 # filename_output = os.path.join(dir_Masks_output, "Output_Masks_YST_part11.mat")
