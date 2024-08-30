@@ -8,6 +8,7 @@ from suns.PostProcessing.evaluate import GetPerformance_Jaccard_2
 # GT_sparse
 dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\\Neurofinder\\test\GT Masks"
 filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_01.00_sparse_generated.mat")
+# filename_GT = os.path.join(dir_Masks_GT, "FinalMasks_01.00_sparse_generated_suns_online.mat")
 
 data_GT = loadmat(filename_GT)
 GTMasks_2 = data_GT['GTMasks_2'].transpose()

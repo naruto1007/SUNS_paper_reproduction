@@ -34,7 +34,7 @@ def Performance_Cal(root_dir, result_dir, data_type_1, data_type_2, list_Exp_ID,
         Exp_ID = list_Exp_ID[CV]
         print('Video ', Exp_ID)
         # GT_sparse
-        filename_GT = dir_GTMasks + Exp_ID + '_sparse_generated.mat'
+        filename_GT = dir_GTMasks + Exp_ID + '_sparse_generated_test_suns_online.mat'
         data_GT = loadmat(filename_GT)
         GTMasks_2 = data_GT['GTMasks_2'].transpose()
         # Mask_sparse

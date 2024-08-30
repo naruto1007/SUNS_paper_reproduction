@@ -48,7 +48,27 @@ def mat_generate_sparse_GT(dir_Masks):
             savemat(os.path.join(path_name[:-4] + '_sparse_generated.mat'), \
                     {'GTMasks_2': GTMasks_2}, do_compression=True)
 
+# only for suns online
+def mat_generate_sparse_GT_test_suns_online(dir_Masks):
+    dir_all = glob.glob(os.path.join(dir_Masks, '*FinalMasks*.mat'))
+    for path_name in dir_all:
+        file_name = os.path.split(path_name)[1]
+        if '_sparse' not in file_name:
+            print(file_name)
+            try:  # If file_name is saved in '-v7.3' format
+                mat = h5py.File(path_name, 'r')
+                FinalMasks = np.array(mat['FinalMasks']).transpose([1, 2, 0]).astype('bool')
+                mat.close()
+            except OSError:  # If file_name is not saved in '-v7.3' format
+                mat = loadmat(path_name)
+                FinalMasks = np.array(mat["FinalMasks"]).transpose([1, 2, 0]).astype('bool')
+
+            (Lx, Ly, ncells) = FinalMasks.shape
+            GTMasks_2 = sparse.coo_matrix(FinalMasks.reshape(Lx * Ly, ncells))
+            savemat(os.path.join(path_name[:-4] + '_sparse_generated_test_suns_online.mat'), \
+                    {'GTMasks_2': GTMasks_2}, do_compression=True)
+
 
 # the results from the two GT_methods is the same
 dir_Masks_GT = "D:\PyCharm_project\SUNS_paper_reproduction\data_zq\\Neurofinder\\train\GT Masks"
-mat_generate_sparse_GT(dir_Masks_GT)
+mat_generate_sparse_GT_test_suns_online(dir_Masks_GT)
